@@ -101,9 +101,9 @@
         }
     }     
     
-    for(Flat *flat in [[ImmopolyManager instance] immoScoutFlats]) {
-        [mapView addAnnotation: flat];
-    }
+    [[[ImmopolyManager instance] immoScoutFlats] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [mapView addAnnotation: obj];
+    }];
 }
 
 - (void)mapView:(MKMapView *)mpView didSelectAnnotationView:(MKAnnotationView *)view{

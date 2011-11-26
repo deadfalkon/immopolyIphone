@@ -11,6 +11,18 @@
 #import "ImmopolyManager.h"
 #import "Flat.h"
 
+@interface FlatTakeOverTask() <NSURLConnectionDelegate>{
+    NSURLConnection *connection;
+    NSMutableData *data;
+    Flat *selectedImmoscoutFlat;
+}
+
+@property(nonatomic, retain) NSURLConnection *connection;
+@property(nonatomic, retain) NSMutableData *data;
+@property(nonatomic, retain) Flat *selectedImmoscoutFlat;
+
+@end
+
 @implementation FlatTakeOverTask
 @synthesize connection,data,selectedImmoscoutFlat;
 

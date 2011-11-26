@@ -446,9 +446,6 @@
 				6DA75CD8145C12EB0079B32C /* include */,
 				6DA75CE8145C12EB0079B32C /* libOAuth */,
 				6DA75C5F145C12360079B32C /* submodules */,
-				D2C67D1E145AA4EA008C3295 /* MapKit.framework */,
-				D2C67D1C145AA4DF008C3295 /* libz.1.2.5.dylib */,
-				D2C67D19145AA4D5008C3295 /* CoreLocation.framework */,
 				D24E7646145834DA003C91A8 /* ImmopolyIPhone */,
 				D24E763F145834DA003C91A8 /* Frameworks */,
 				D24E763D145834DA003C91A8 /* Products */,
@@ -466,6 +463,9 @@
 		D24E763F145834DA003C91A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2C67D1C145AA4DF008C3295 /* libz.1.2.5.dylib */,
+				D2C67D1E145AA4EA008C3295 /* MapKit.framework */,
+				D2C67D19145AA4D5008C3295 /* CoreLocation.framework */,
 				D24E766E1458362E003C91A8 /* libz.dylib */,
 				D24E7668145835BB003C91A8 /* SystemConfiguration.framework */,
 				D24E766A145835C5003C91A8 /* MobileCoreServices.framework */,

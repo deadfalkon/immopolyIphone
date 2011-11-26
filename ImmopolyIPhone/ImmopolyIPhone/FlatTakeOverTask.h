@@ -9,15 +9,7 @@
 #import "HistoryEntry.h"
 #import "Flat.h"
 
-@interface FlatTakeOverTask : NSObject<NSURLConnectionDelegate>{
-    NSURLConnection *connection;
-    NSMutableData *data;
-    Flat *selectedImmoscoutFlat;
-}
-
-@property(nonatomic, retain) NSURLConnection *connection;
-@property(nonatomic, retain) NSMutableData *data;
-@property(nonatomic, retain) Flat *selectedImmoscoutFlat;
+@interface FlatTakeOverTask : NSObject
 
 -(void)takeOverFlat:(Flat *)selectedImmoscoutFlat;
 

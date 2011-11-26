@@ -177,20 +177,19 @@
 	pos.y = -320.0f;
 	calloutBubble.center = pos;
     
-    CGPoint posMap;
-    CGPoint posTable;
+    __block CGPoint posMap;
+    __block CGPoint posTable;
     NSLog(@"selIndex: %d", segmentedControl.selectedSegmentIndex);
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:0.4];
-            posMap = portfolioMapView.center;
-            posTable = table.center;
-            posMap.x = 480.0f;
-            posTable.x = 160.0f;
-            portfolioMapView.center = posMap;
-            table.center = posTable;
-            [UIView commitAnimations]; 
+            [UIView animateWithDuration:0.4 animations:^{
+                posMap = portfolioMapView.center;
+                posTable = table.center;
+                posMap.x = 480.0f;
+                posTable.x = 160.0f;
+                portfolioMapView.center = posMap;
+                table.center = posTable;
+            }];
             break;
         case 1:
             [UIView beginAnimations:nil context:NULL];
