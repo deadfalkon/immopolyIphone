@@ -29,7 +29,9 @@
         NSString *exceptionMessage = [exceptionDic objectForKey:@"message"];
         int errorCode = [[exceptionDic objectForKey:@"errorCode"]intValue];
         
-        *err = [NSError errorWithDomain:@"parseUserData" code:errorCode userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:exceptionMessage],@"ErrorMessage",nil]];
+        if (err) {
+            *err = [NSError errorWithDomain:@"parseUserData" code:errorCode userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:exceptionMessage],@"ErrorMessage",nil]];
+        }
 
         return nil;
     } 
