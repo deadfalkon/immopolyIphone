@@ -8,13 +8,9 @@
 
 #import "OAuthManager.h"
 #import "OAMutableURLRequest.h"
-
-#error insert key/value
-#define REST_AUTHENTICATION_KEY @""
-#define REST_AUTHENTICATION_SECRET @""
+#import "Secrets.h"
 
 @implementation OAuthManager
-
 
 - (void)dealloc {
     [super dealloc];
@@ -22,8 +18,8 @@
 
 - (NSString *) requestHeaderWithURL:(NSURL *)url andMethod:(NSString *)cMethod
 {
-    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:REST_AUTHENTICATION_KEY
-                                                    secret:REST_AUTHENTICATION_SECRET];
+    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:oAuthKey
+                                                    secret:oAuthSecret];
     
     OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url consumer:consumer HTTPMethod:cMethod];
     [consumer release];
