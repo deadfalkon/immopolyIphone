@@ -11,53 +11,40 @@
 #import "JSONParser.h"
 #import "ImmopolyManager.h"
 #import "Constants.h"
+#import "ASIHTTPRequest.h"
 
 @implementation FlatProvider
-
-
-- (void)getExposeFromId:(int)_exposeId {
-    OAuthManager *manager = [[OAuthManager alloc] init];
-    
-    NSString *url = [[NSString alloc]initWithFormat:@"%@expose/%d",urlIS24API,_exposeId];
-    
-    [manager grabURLInBackground:url withFormat:@"application/json" withDelegate:self];
-    [manager release];
-    [url release];
-}
-
 
 - (void)getFlatsFromLocation:(CLLocationCoordinate2D)_location {
     OAuthManager *manager = [[OAuthManager alloc] init];
     
     NSString *url = [[NSString alloc]initWithFormat:@"%@search/radius.json?realEstateType=apartmentrent&pagenumber=1&geocoordinates=%f;%f;3.0",urlIS24API,_location.latitude,_location.longitude];
     
-    [manager grabURLInBackground:url withFormat:@"application/json" withDelegate:self];
+    ASIHTTPRequest* request = [manager grabURLInBackground:url withFormat:@"application/json" withDelegate:self];
+    [request setFailedBlock:^{
+        NSError *error = [request error];
+        
+        NSLog(@"Error: %@ for location %@",[error localizedDescription],_location);
+    }];
+    
+    [request setCompletionBlock:^{
+        NSString *responseString = [request responseString];
+        NSError *err=nil;
+        [[ImmopolyManager instance] setImmoScoutFlats:[JSONParser parseFlatData:responseString :&err]]; 
+        
+        if (err) {
+            //Handle Error here
+            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:err forKey:@"error"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"flatProvider/parse fail" object:nil userInfo:errorInfo];
+        }else{
+            [[ImmopolyManager instance] callFlatsDelegate];
+            NSLog(@"Response: %@",responseString);
+        }
+    }];
+    
     [manager release];
     [url release];
 }
 
-- (void)requestFinished:(ASIHTTPRequest *)request {
-    NSString *responseString = [request responseString];
-    NSError *err=nil;
-    [[ImmopolyManager instance] setImmoScoutFlats:[JSONParser parseFlatData:responseString :&err]]; 
-    
-    if (err) {
-        //Handle Error here
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:err forKey:@"error"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"flatProvider/parse fail" object:nil userInfo:errorInfo];
-    }else{
-        [[ImmopolyManager instance] callFlatsDelegate];
-        NSLog(@"Response: %@",responseString);
-    }
-}
 
-- (void)requestFailed:(ASIHTTPRequest *)request {
-    NSError *error = [request error];
-
-    NSLog(@"Error: %@",[error localizedDescription]);
-}
-
--(void)testMethod{
-
-}
 @end

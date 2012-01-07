@@ -13,7 +13,6 @@
 
 
 - (void)getFlatsFromLocation:(CLLocationCoordinate2D)_location;
-- (void)getExposeFromId:(int)_exposeId;
 
 
 @end
