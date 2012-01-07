@@ -32,7 +32,7 @@
     
     
     if ([self connection]) {
-        [self setData: [[NSMutableData data] retain]];
+        [self setData: [NSMutableData data]];
     }
 }
 
@@ -46,7 +46,7 @@
     
     
     if ([self connection]) {
-        [self setData: [[NSMutableData data] retain]];
+        [self setData: [NSMutableData data]];
     }
 }
 
